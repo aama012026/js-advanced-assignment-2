@@ -1,9 +1,15 @@
 import fs from 'node:fs/promises';
 
 const HEROES_URL = 'https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json';
+const CDN_BASE = 'https://cdn.steamstatic.com/';
 const rawHeroes = await fetchJSON(HEROES_URL) as Record<string, RawHero>;
-const formattedHeroes = Object.values(rawHeroes).map(hero => formatHero(hero));
+const heroArray = Object.values(rawHeroes);
+const formattedHeroes = heroArray.map(hero => formatHero(hero));
 await writeJSON('heroes.json', formattedHeroes);
+heroArray.forEach(async hero => {
+	const img = await fetchImg(CDN_BASE + hero.img);
+	await writeImg(`${hero.name}.png`, Buffer.from(img));
+});
 
 interface RawHero {
 	id: number,
@@ -174,7 +180,28 @@ async function fetchJSON(url: string) {
 async function writeJSON(filePath: string, data: any) {
 	try {
 		console.log(`Writing ${filePath}...`);
-		await fs.writeFile(`dist/data/${filePath}`, JSON.stringify(data, null, '\t'));
+		await fs.writeFile(`build/assets/json/${filePath}`, JSON.stringify(data, null, '\t'));
+		console.log(`Wrote ${filePath}!`);
+	}
+	catch (error) {
+		throw new Error(`Could not write ${filePath}: ${error}`);
+	}
+}
+
+async function fetchImg(url: string, logName?: string) {
+	console.log(`Fetching ${logName ? logName : url}`);
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw new Error(`Failed to fetch img: ${logName ? logName + ': ' + url : url}`);
+	}
+	console.log(`Got ${logName ? logName + ': ' + url : url}`);
+	return response.arrayBuffer();
+}
+
+async function writeImg(filePath: string, data: Buffer) {
+	try {
+		console.log(`Writing ${filePath}...`);
+		await fs.writeFile(`build/assets/img/${filePath}`, data);
 		console.log(`Wrote ${filePath}!`);
 	}
 	catch (error) {
