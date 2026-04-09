@@ -174,7 +174,7 @@ async function fetchJSON(url: string) {
 async function writeJSON(filePath: string, data: any) {
 	try {
 		console.log(`Writing ${filePath}...`);
-		await fs.writeFile(filePath, JSON.stringify(data));
+		await fs.writeFile(`dist/data/${filePath}`, JSON.stringify(data, null, '\t'));
 		console.log(`Wrote ${filePath}!`);
 	}
 	catch (error) {

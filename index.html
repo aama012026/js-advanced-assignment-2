@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DotaLogger</title>
+</head>
+<body>
+	<header>
+		<a>Dashboard</a>
+		<a>Matches</a>
+		<a>Heroes</a>
+	</header>
+	<main>
+		<h1>DotaLogger</h1>
+		<section id="dashboard">
+			<h2>Dashboard</h2>
+			<article id="most-played-heroes" class="top-heroes">
+				<h3>Most played hero</h3>
+				<article class="hero-stat-frame">
+					<h4 class="visually hidden">Most played universal hero</h4>
+					<img>
+					<span class="bottom-left">Pick: - %</span>
+					<span class="bottom-right">Win: - %</span>
+				</article>
+				<div>
+					<article class="hero-stat-frame">
+						<h4>Most played strength hero</h4>
+						<img>
+						<span class="bottom-left">Pick: - %</span>
+						<span class="bottom-right">Win: - %</span>
+					</article>
+					<article class="hero-stat-frame">
+						<h4>Most played agility hero</h4>
+						<img>
+						<span class="bottom-left">Pick: - %</span>
+						<span class="bottom-right">Win: - %</span>
+					</article>
+					<article class="hero-stat-frame">
+						<h4>Most played intelligence hero</h4>
+						<img>
+						<span class="bottom-left">Pick: - %</span>
+						<span class="bottom-right">Win: - %</span>
+					</article>
+				</div>
+			</article>
+			<div id="text-stats">
+				<article id="top-roles">
+					<h3>Most played roles</h3>
+					<div>
+						<p><span>Carry</span><span>- % pick</span><span>% win</span></p>
+						<p><span>Support</span><span>- % pick</span><span>% win</span></p>
+					</div>
+					<div class="grid">
+						<span>1. role:</span>
+						<span>- matches</span>
+						<span>Pickrate: - %</span>
+						<span>Winrate: - %</span>
+						<span>2. role</span>
+						<span>- matches</span>
+						<span>Pickrate: - %</span>
+						<span>Winrate: - %</span>
+						<span>3. role</span>
+						<span>- matches</span>
+						<span>Pickrate: - %</span>
+						<span>Winrate: - %</span>
+					</div>
+				</article>
+				<article id="winrates">
+					<h3>Winrate</h3>
+					<p>Total:</p>
+					<p>Radiant:</p>
+					<p>Dire:</p>
+				</article>
+				<article id="game-time">
+					<h3>Game length</h3>
+					<p>Games played:</p>
+					<p>
+						<span>shortest: -</span>
+						<span><abbr title="Average">Avg</abbr>: -</span>
+						<span>Longest: -</span>
+					</p>
+				</article>
+			</div>
+			<article id="highest-winning-heroes">
+				<h3>Highest winning hero</h3>
+				<article class="hero-stat-frame">
+					<h4 class="visually hidden">Highest winning universal hero</h4>
+					<img>
+					<span class="bottom-left">Pick: - %</span>
+					<span class="bottom-right">Win: - %</span>
+				</article>
+				<div>
+					<article class="hero-stat-frame">
+						<h4>Highest winninged strength hero</h4>
+						<img>
+						<span class="bottom-left">Pick: - %</span>
+						<span class="bottom-right">Win: - %</span>
+					</article>
+					<article class="hero-stat-frame">
+						<h4>Highest winning agility hero</h4>
+						<img>
+						<span class="bottom-left">Pick: - %</span>
+						<span class="bottom-right">Win: - %</span>
+					</article>
+					<article class="hero-stat-frame">
+						<h4>Highest winning intelligence hero</h4>
+						<img>
+						<span class="bottom-left">Pick: - %</span>
+						<span class="bottom-right">Win: - %</span>
+					</article>
+				</div>
+			</article>
+		</section>
+		<section id="add-match">
+			<h3>Add match</h3>
+			<form>
+				<label for="hero-select">Hero</label>
+				<select id="hero-select" name="hero-select"></select>
+
+				<label for="game-length">Length</label>
+				<input id="game-length" name="game-length" type="text">
+
+				<fieldset>
+					<legend>Side</legend>
+
+					<input type="radio" name="side" id="radient" value="radient">
+					<label for="radient">radient</label>
+
+					<input type="radio" name="side" id="dire" value="dire">
+					<label for="dire">dire</label>
+				</fieldset>
+				
+				<fieldset>
+					<legend>Result</legend>
+
+					<input type="radio" name="result" id="win" value="win">
+					<label for="win">win</label>
+
+					<input type="radio" name="result" id="loss" value="loss">
+					<label for="loss">loss</label>
+				</fieldset>
+				<button type="reset">Reset</button>
+				<button type="submit">Log match</button>
+			</form>
+		</section>
+		<section id="match-list"></section>
+	</main>
+</body>
+</html>
