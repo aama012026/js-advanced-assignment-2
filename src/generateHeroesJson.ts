@@ -1,5 +1,10 @@
 import fs from 'node:fs/promises';
 
+const HEROES_URL = 'https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json';
+const rawHeroes = await fetchJSON(HEROES_URL) as Record<string, RawHero>;
+const formattedHeroes = Object.values(rawHeroes).map(hero => formatHero(hero));
+await writeJSON('heroes.json', formattedHeroes);
+
 interface RawHero {
 	id: number,
 	name: string,
@@ -36,7 +41,7 @@ interface RawHero {
 	localized_name: string
 }
 
-interface formattedHero {
+interface FormattedHero {
 	id: number,
 	name: {
 		static: string,
@@ -57,6 +62,11 @@ interface formattedHero {
 	vision: Vision,
 	legs: number,
 	is_in_captains_mode: boolean
+}
+
+interface Resource {
+	size: number,
+	regen: number
 }
 
 enum Attribute {
@@ -88,23 +98,15 @@ interface Attack {
 
 interface Movement {
 	speed: number,
-	turn_rate: number | null
+	turnRate: number | null
 }
+
 interface Vision {
 	day: number,
 	night: number
 }
 
-interface Resource {
-	size: number,
-	regen: number
-}
-
-const HEROES_URL = 'https://raw.githubusercontent.com/odota/dotaconstants/refs/heads/master/build/heroes.json';
-const rawHeroes = await fetchJSON(HEROES_URL) as Record<string, RawHero>;
-const formattedHeroes = Object.values(rawHeroes).map(hero => formatHero(hero));
-
-function formatHero(rawHero: RawHero): formattedHero {
+function formatHero(rawHero: RawHero): FormattedHero {
 	return {
 		id: rawHero.id,
 		name: {
@@ -148,7 +150,7 @@ function formatHero(rawHero: RawHero): formattedHero {
 		},
 		movement: {
 			speed: rawHero.move_speed,
-			turn_rate: rawHero.turn_rate
+			turnRate: rawHero.turn_rate
 		},
 		vision: {
 			day: rawHero.day_vision,
@@ -160,11 +162,22 @@ function formatHero(rawHero: RawHero): formattedHero {
 }
 
 async function fetchJSON(url: string) {
-	const response = await fetch(HEROES_URL);
+	console.log(`Fetching ${url}...`);
+	const response = await fetch(url);
 	if (!response.ok) {
 		throw new Error(`Failed to fetch ${url}!`);
 	}
+	console.log(`Got ${url}!`);
 	return response.json();
 }
 
-// async function saveJSON(file, )
+async function writeJSON(filePath: string, data: any) {
+	try {
+		console.log(`Writing ${filePath}...`);
+		await fs.writeFile(filePath, JSON.stringify(data));
+		console.log(`Wrote ${filePath}!`);
+	}
+	catch (error) {
+		throw new Error(`Could not write ${filePath}: ${error}`);
+	}
+}
