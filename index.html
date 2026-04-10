@@ -3,13 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="static/style.css">
 	<title>DotaLogger</title>
 </head>
 <body>
 	<header>
-		<a>Dashboard</a>
-		<a>Matches</a>
-		<a>Heroes</a>
+		<nav>
+			<a href="index.html" class="current">Dashboard</a>
+			<a>Matches</a>
+			<a>Heroes</a>
+		</nav>
 	</header>
 	<main>
 		<h1>DotaLogger</h1>
@@ -18,29 +26,35 @@
 			<article id="most-played-heroes" class="top-heroes">
 				<h3>Most played hero</h3>
 				<article class="hero-stat-frame">
-					<h4 class="visually hidden">Most played universal hero</h4>
-					<img>
+					<h4 class="visually-hidden">total</h4>
+					<img src="build/assets/img/npc_dota_hero_abaddon.png">
 					<span class="bottom-left">Pick: - %</span>
 					<span class="bottom-right">Win: - %</span>
 				</article>
 				<div>
 					<article class="hero-stat-frame">
-						<h4>Most played strength hero</h4>
-						<img>
-						<span class="bottom-left">Pick: - %</span>
-						<span class="bottom-right">Win: - %</span>
+						<h4 class="attribute strength"><abbr title="strength">str</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_abyssal_underlord.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
 					</article>
 					<article class="hero-stat-frame">
-						<h4>Most played agility hero</h4>
-						<img>
-						<span class="bottom-left">Pick: - %</span>
-						<span class="bottom-right">Win: - %</span>
+						<h4 class="attribute agility"><abbr title="agility">agi</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_antimage.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
 					</article>
 					<article class="hero-stat-frame">
-						<h4>Most played intelligence hero</h4>
-						<img>
-						<span class="bottom-left">Pick: - %</span>
-						<span class="bottom-right">Win: - %</span>
+						<h4 class="attribute intelligence"><abbr title="intelligence">int</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_ancient_apparition.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
+					</article>
+					<article class="hero-stat-frame">
+						<h4 class="attribute universal"><abbr title="universal">uni</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_windrunner.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
 					</article>
 				</div>
 			</article>
@@ -82,32 +96,38 @@
 					</p>
 				</article>
 			</div>
-			<article id="highest-winning-heroes">
+			<article id="highest-winning-heroes" class="top-heroes">
 				<h3>Highest winning hero</h3>
 				<article class="hero-stat-frame">
-					<h4 class="visually hidden">Highest winning universal hero</h4>
-					<img>
+					<h4 class="visually-hidden">universal</h4>
+					<img src="build/assets/img/npc_dota_hero_marci.png">
 					<span class="bottom-left">Pick: - %</span>
 					<span class="bottom-right">Win: - %</span>
 				</article>
 				<div>
 					<article class="hero-stat-frame">
-						<h4>Highest winninged strength hero</h4>
-						<img>
-						<span class="bottom-left">Pick: - %</span>
-						<span class="bottom-right">Win: - %</span>
+						<h4 class="attribute strength"><abbr title="strength">str</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_axe.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
 					</article>
 					<article class="hero-stat-frame">
-						<h4>Highest winning agility hero</h4>
-						<img>
-						<span class="bottom-left">Pick: - %</span>
-						<span class="bottom-right">Win: - %</span>
+						<h4 class="attribute agility"><abbr title="agility">agi</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_mirana.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
 					</article>
 					<article class="hero-stat-frame">
-						<h4>Highest winning intelligence hero</h4>
-						<img>
-						<span class="bottom-left">Pick: - %</span>
-						<span class="bottom-right">Win: - %</span>
+						<h4 class="attribute intelligence"><abbr title="intelligence">int</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_muerta.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
+					</article>
+					<article class="hero-stat-frame">
+						<h4 class="attribute universal"><abbr title="universal">uni</abbr></h4>
+						<img src="build/assets/img/npc_dota_hero_wisp.png">
+						<span class="bottom-left">- %</span>
+						<span class="bottom-right">- %</span>
 					</article>
 				</div>
 			</article>
