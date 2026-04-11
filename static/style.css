@@ -12,6 +12,10 @@
 	--black: #101415;
 }
 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	font-family: 'Poltawski Nowy';
 	color: var(--white);
@@ -50,6 +54,11 @@ img {
 	}
 }
 
+h4, p {
+	margin: 0em;
+	margin-bottom: 0.5em;
+}
+
 abbr {
 	cursor: pointer;
 }
@@ -60,6 +69,7 @@ abbr {
 	align-items: center;
 	width: fit-content;
 	position: relative;
+	font-size: 1.3rem;
 
 	& .bottom-left {
 		position: absolute;
@@ -78,6 +88,7 @@ abbr {
 	display: flex;
 	flex-direction: column;
 	width: min-content;
+	
 	& h4 {
 		margin: 0.5em;
 	}
@@ -102,24 +113,80 @@ abbr {
 		height: 1rem;
 		width: 1rem;
 	}
+}
 
-	.strength::after {
-		background-image: url(./icons/hero_strength.png);
+.strength::after {
+	background-image: url(./icons/hero_strength.png);
+}
+
+.agility::after {
+	background-image: url(./icons/hero_agility.png);
+}
+
+.intelligence::after {
+	background-image: url(./icons/hero_intelligence.png);
+}
+
+.universal::after {
+	background-image: url(./icons/hero_universal.png);
+}
+
+.right-align {
+	text-align: right;
+}
+
+.outlined-text {
+	color: var(--white);
+	--offset: 0.05em;
+	--offset-i: calc(0px - var(--offset));
+	--blur-radius: 1px;
+	text-shadow:
+		var(--offset) var(--offset-i) var(--blur-radius) var(--black),
+		calc(var(--offset) * 1.5) 0 var(--blur-radius) var(--black),
+		var(--offset) var(--offset) var(--blur-radius) var(--black),
+		0 calc(var(--offset-i) * 1.5) var(--blur-radius) var(--black),
+		0 calc(var(--offset) * 1.5) var(--blur-radius) var(--black),
+		var(--offset-i) var(--offset-i) var(--blur-radius) var(--black),
+		calc(var(--offset-i) * 1.5) 0 var(--blur-radius) var(--black),
+		var(--offset-i) var(--offset) var(--blur-radius) var(--black);
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	
+	& .horizontal {
+		flex-direction: row;
 	}
-
-	.agility::after {
-		background-image: url(./icons/hero_agility.png);
+	
+	& .vertical {
+		flex-direction: column;
 	}
+}
 
-	.intelligence::after {
-		background-image: url(./icons/hero_intelligence.png);
-	}
+.grid {
+	display: grid;
+	grid: repeat(3, auto) / auto repeat(3, 1fr);
+	gap: 0.5em;
+}
 
-	.universal::after {
-		background-image: url(./icons/hero_universal.png);
-	}
+#add-match > form {
+	display: grid;
+	grid-template-columns: auto 3fr 1fr repeat(5, auto) 1fr auto;
+	gap: 0.5rem 1rem;
+}
 
-	.visually-hidden {
-		display: none;
+.visually-hidden {
+	display: none;
+}
+
+.debug {
+	border: 1px solid var(--dire-red);
+}
+
+#text-stats {
+	& .horizontal {
+		width: 100%;
 	}
 }

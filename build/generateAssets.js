@@ -9,13 +9,6 @@ heroArray.forEach(async (hero) => {
     const img = await fetchImg(CDN_BASE + hero.img);
     await writeImg(`${hero.name}.png`, Buffer.from(img));
 });
-var Attribute;
-(function (Attribute) {
-    Attribute["Strength"] = "str";
-    Attribute["Agility"] = "agi";
-    Attribute["Intelligence"] = "int";
-    Attribute["Universal"] = "all";
-})(Attribute || (Attribute = {}));
 function formatHero(rawHero) {
     return {
         id: rawHero.id,

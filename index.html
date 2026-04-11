@@ -8,7 +8,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poltawski+Nowy:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="static/style.css">
+	<link rel="stylesheet" href="./static/style.css">
+	<script src="./build/main.js" type="module"></script>
 	<title>DotaLogger</title>
 </head>
 <body>
@@ -21,49 +22,55 @@
 	</header>
 	<main>
 		<h1>DotaLogger</h1>
-		<section id="dashboard">
-			<h2>Dashboard</h2>
-			<article id="most-played-heroes" class="top-heroes">
+		<section class="flex horizontal debug">
+			<h2 class="visually-hidden">Dashboard</h2>
+			<article id="most-picked-heroes" class="top-heroes debug">
 				<h3>Most played hero</h3>
-				<article class="hero-stat-frame">
+				<article class="hero-stat-frame debug">
 					<h4 class="visually-hidden">total</h4>
 					<img src="build/assets/img/npc_dota_hero_abaddon.png">
-					<span class="bottom-left">Pick: - %</span>
-					<span class="bottom-right">Win: - %</span>
+					<span class="bottom-left outlined-text">Pick: - %</span>
+					<span class="bottom-right outlined-text">Win: - %</span>
 				</article>
 				<div>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute strength"><abbr title="strength">str</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_abyssal_underlord.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute agility"><abbr title="agility">agi</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_antimage.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute intelligence"><abbr title="intelligence">int</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_ancient_apparition.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute universal"><abbr title="universal">uni</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_windrunner.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
 				</div>
 			</article>
-			<div id="text-stats">
-				<article id="top-roles">
+			<div id="text-stats" class="debug">
+				<article id="top-roles" class="flex vertical debug">
 					<h3>Most played roles</h3>
-					<div>
-						<p><span>Carry</span><span>- % pick</span><span>% win</span></p>
-						<p><span>Support</span><span>- % pick</span><span>% win</span></p>
+					<div class="flex horizontal">
+						<section class="flex vertical">
+							<h4>Carry</h4>
+							<p><span>- % pick</span><span>% win</span></p>
+						</section>
+						<section class="flex vertical">
+							<h4>Support</h4>
+							<p><span>- % pick</span><span>% win</span></p>
+						</section>
 					</div>
 					<div class="grid">
 						<span>1. role:</span>
@@ -80,54 +87,56 @@
 						<span>Winrate: - %</span>
 					</div>
 				</article>
-				<article id="winrates">
+				<article id="winrates" class="flex vertical debug">
 					<h3>Winrate</h3>
 					<p>Total:</p>
-					<p>Radiant:</p>
-					<p>Dire:</p>
+					<div class="flex horizontal debug">
+						<p>Radiant:</p>
+						<p>Dire:</p>
+					</div>
 				</article>
-				<article id="game-time">
+				<article id="game-time" class="flex vertical debug">
 					<h3>Game length</h3>
 					<p>Games played:</p>
-					<p>
+					<p class="flex horizontal debug">
 						<span>shortest: -</span>
 						<span><abbr title="Average">Avg</abbr>: -</span>
 						<span>Longest: -</span>
 					</p>
 				</article>
 			</div>
-			<article id="highest-winning-heroes" class="top-heroes">
+			<article id="most-wins-heroes" class="top-heroes debug">
 				<h3>Highest winning hero</h3>
-				<article class="hero-stat-frame">
+				<article class="hero-stat-frame debug">
 					<h4 class="visually-hidden">universal</h4>
 					<img src="build/assets/img/npc_dota_hero_marci.png">
-					<span class="bottom-left">Pick: - %</span>
-					<span class="bottom-right">Win: - %</span>
+					<span class="bottom-left outlined-text">Pick: - %</span>
+					<span class="bottom-right outlined-text">Win: - %</span>
 				</article>
 				<div>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute strength"><abbr title="strength">str</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_axe.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute agility"><abbr title="agility">agi</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_mirana.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute intelligence"><abbr title="intelligence">int</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_muerta.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame">
+					<article class="hero-stat-frame debug">
 						<h4 class="attribute universal"><abbr title="universal">uni</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_wisp.png">
-						<span class="bottom-left">- %</span>
-						<span class="bottom-right">- %</span>
+						<span class="bottom-left outlined-text">- %</span>
+						<span class="bottom-right outlined-text">- %</span>
 					</article>
 				</div>
 			</article>
@@ -135,32 +144,26 @@
 		<section id="add-match">
 			<h3>Add match</h3>
 			<form>
-				<label for="hero-select">Hero</label>
+				<label for="hero-select" class="right-align">Hero</label>
 				<select id="hero-select" name="hero-select"></select>
+				<span></span>
+				<span class="right-align">Side:</span>
+				<input type="radio" name="side" id="radiant" value="radiant">
+				<label for="radiant">radiant</label>
+				<input type="radio" name="side" id="dire" value="dire">
+				<label for="dire">dire</label>
+				<span></span>
+				<button type="reset">Reset</button>
 				
 				<label for="game-length">Length</label>
 				<input id="game-length" name="game-length" type="text">
-				
-				<fieldset>
-					<legend>Side</legend>
-					
-					<input type="radio" name="side" id="radient" value="radient">
-					<label for="radient">radient</label>
-					
-					<input type="radio" name="side" id="dire" value="dire">
-					<label for="dire">dire</label>
-				</fieldset>
-				
-				<fieldset>
-					<legend>Result</legend>
-					
-					<input type="radio" name="result" id="win" value="win">
-					<label for="win">win</label>
-					
-					<input type="radio" name="result" id="loss" value="loss">
-					<label for="loss">loss</label>
-				</fieldset>
-				<button type="reset">Reset</button>
+				<span></span>
+				<span class="right-align">Result:</span>
+				<input type="radio" name="result" id="win" value="win">
+				<label for="win">win</label>
+				<input type="radio" name="result" id="loss" value="loss">
+				<label for="loss">loss</label>
+				<span></span>
 				<button type="submit">Log match</button>
 			</form>
 		</section>
