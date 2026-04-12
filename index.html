@@ -25,34 +25,37 @@
 		<section class="flex horizontal debug">
 			<h2 class="visually-hidden">Dashboard</h2>
 			<article id="most-picked-heroes" class="top-heroes debug">
-				<h3>Most played hero</h3>
+				<h3>Most picked heroes</h3>
 				<article class="hero-stat-frame debug">
-					<h4 class="visually-hidden">total</h4>
+					<h4 class="attribute">total</h4>
 					<img src="build/assets/img/npc_dota_hero_abaddon.png">
-					<span class="bottom-left outlined-text">Pick: - %</span>
-					<span class="bottom-right outlined-text">Win: - %</span>
+					<span class="bottom-left outlined-text pickrate">Pick: - %</span>
+					<span class="bottom-right outlined-text winrate">Win: - %</span>
 				</article>
 				<div>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute strength"><abbr title="strength">str</abbr></h4>
+						<h4 class="attribute str"><abbr title="strength">str</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_abyssal_underlord.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute agility"><abbr title="agility">agi</abbr></h4>
+						<h4 class="attribute agi"><abbr title="agility">agi</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_antimage.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute intelligence"><abbr title="intelligence">int</abbr></h4>
+						<h4 class="attribute int"><abbr title="intelligence">int</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_ancient_apparition.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute universal"><abbr title="universal">uni</abbr></h4>
+						<!-- the .all class represents the universal attribute.
+						The naming is given from the original dataset (the game files),
+						and is used programmatically in script -->
+						<h4 class="attribute all"><abbr title="universal">uni</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_windrunner.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
@@ -106,34 +109,37 @@
 				</article>
 			</div>
 			<article id="most-wins-heroes" class="top-heroes debug">
-				<h3>Highest winning hero</h3>
+				<h3>Heroes with most wins</h3>
 				<article class="hero-stat-frame debug">
-					<h4 class="visually-hidden">universal</h4>
+					<h4 class="attribute">Total</h4>
 					<img src="build/assets/img/npc_dota_hero_marci.png">
 					<span class="bottom-left outlined-text">Pick: - %</span>
 					<span class="bottom-right outlined-text">Win: - %</span>
 				</article>
 				<div>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute strength"><abbr title="strength">str</abbr></h4>
+						<h4 class="attribute str"><abbr title="strength">str</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_axe.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute agility"><abbr title="agility">agi</abbr></h4>
+						<h4 class="attribute agi"><abbr title="agility">agi</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_mirana.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute intelligence"><abbr title="intelligence">int</abbr></h4>
+						<h4 class="attribute int"><abbr title="intelligence">int</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_muerta.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
 					<article class="hero-stat-frame debug">
-						<h4 class="attribute universal"><abbr title="universal">uni</abbr></h4>
+						<!-- the .all class represents the universal attribute.
+						The naming is given from the original dataset (the game files),
+						and is used programmatically in script -->
+						<h4 class="attribute all"><abbr title="universal">uni</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_wisp.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
@@ -143,26 +149,37 @@
 		</section>
 		<section id="add-match">
 			<h3>Add match</h3>
-			<form>
+			<form id="add-match-form">
 				<label for="hero-select" class="right-align">Hero</label>
-				<select id="hero-select" name="hero-select"></select>
+				<select id="hero-select" name="hero-select" required>
+					<option label="select a hero" value="" disabled selected></option>
+					<!-- options gets populated by script -->
+				</select>
+				
 				<span></span>
+				
+				<label for="game-length" class="right-align">Length</label>
+				<input id="game-length" name="game-length" type="text" required placeholder="HH:MM:SS">
+				
+				<span></span>
+				
 				<span class="right-align">Side:</span>
-				<input type="radio" name="side" id="radiant" value="radiant">
+				<input type="radio" name="side" id="radiant" value="radiant" required>
 				<label for="radiant">radiant</label>
 				<input type="radio" name="side" id="dire" value="dire">
 				<label for="dire">dire</label>
-				<span></span>
-				<button type="reset">Reset</button>
 				
-				<label for="game-length">Length</label>
-				<input id="game-length" name="game-length" type="text">
 				<span></span>
+				
 				<span class="right-align">Result:</span>
-				<input type="radio" name="result" id="win" value="win">
+				<input type="radio" name="result" id="win" value="win" required>
 				<label for="win">win</label>
 				<input type="radio" name="result" id="loss" value="loss">
 				<label for="loss">loss</label>
+				
+				<span></span>
+				
+				<button type="reset">Reset</button>
 				<span></span>
 				<button type="submit">Log match</button>
 			</form>
