@@ -346,15 +346,19 @@ function redrawMatchList() {
         result.textContent = match.result;
         const editBtn = document.createElement('button');
         editBtn.classList.add('btn-change');
+        editBtn.textContent = 'edit';
+        editBtn.style.minWidth = '10ch';
         const removeBtn = document.createElement('button');
         removeBtn.classList.add('btn-destructive');
+        removeBtn.textContent = 'remove';
+        removeBtn.style.minWidth = '10ch';
         removeBtn.addEventListener('click', () => {
             matches.splice(id, 1);
-            redrawMatchList();
+            updateAnalysis();
         });
         const matchDetails = document.createElement('p');
         matchDetails.style.display = 'grid';
-        matchDetails.style.gridTemplateColumns = 'repeat(5, 1fr)';
+        matchDetails.style.gridTemplateColumns = 'repeat(5, 30ch)';
         matchDetails.style.width = '100%';
         matchDetails.style.alignItems = 'center';
         matchDetails.style.justifyItems = 'start';

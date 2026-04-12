@@ -13,45 +13,38 @@
 	<title>DotaLogger</title>
 </head>
 <body>
-	<header>
-		<nav>
-			<a href="index.html" class="current">Dashboard</a>
-			<a>Matches</a>
-			<a>Heroes</a>
-		</nav>
-	</header>
 	<main>
 		<h1>DotaLogger</h1>
-		<section class="flex horizontal debug">
+		<section class="flex horizontal">
 			<h2 class="visually-hidden">Dashboard</h2>
-			<article id="most-picked-heroes" class="top-heroes debug">
+			<article id="most-picked-heroes" class="top-heroes">
 				<h3>Most picked heroes</h3>
-				<article class="hero-stat-frame debug">
+				<article class="hero-stat-frame">
 					<h4 class="attribute">total</h4>
 					<img src="build/assets/img/npc_dota_hero_abaddon.png">
 					<span class="bottom-left outlined-text pickrate">Pick: - %</span>
 					<span class="bottom-right outlined-text winrate">Win: - %</span>
 				</article>
 				<div>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<h4 class="attribute str"><abbr title="strength">str</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_abyssal_underlord.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<h4 class="attribute agi"><abbr title="agility">agi</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_antimage.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<h4 class="attribute int"><abbr title="intelligence">int</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_ancient_apparition.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<!-- the .all class represents the universal attribute.
 						The naming is given from the original dataset (the game files),
 						and is used programmatically in script -->
@@ -62,8 +55,8 @@
 					</article>
 				</div>
 			</article>
-			<div id="text-stats" class="debug">
-				<article id="top-roles" class="flex vertical debug">
+			<div id="text-stats" class="">
+				<article id="top-roles" class="flex vertical">
 					<h3>Most played roles</h3>
 					<div class="flex horizontal">
 						<section class="flex vertical">
@@ -90,52 +83,52 @@
 						<span>Winrate: - %</span>
 					</div>
 				</article>
-				<article id="winrates" class="flex vertical debug">
+				<article id="winrates" class="flex vertical">
 					<h3>Winrate</h3>
 					<p>Total:</p>
-					<div class="flex horizontal debug">
+					<div class="flex horizontal">
 						<p>Radiant:</p>
 						<p>Dire:</p>
 					</div>
 				</article>
-				<article id="game-time" class="flex vertical debug">
+				<article id="game-time" class="flex vertical">
 					<h3>Game length</h3>
 					<p>Games played:</p>
-					<p class="flex horizontal debug">
+					<p class="flex horizontal">
 						<span>shortest: -</span>
 						<span><abbr title="Average">Avg</abbr>: -</span>
 						<span>Longest: -</span>
 					</p>
 				</article>
 			</div>
-			<article id="most-wins-heroes" class="top-heroes debug">
+			<article id="most-wins-heroes" class="top-heroes">
 				<h3>Heroes with most wins</h3>
-				<article class="hero-stat-frame debug">
+				<article class="hero-stat-frame">
 					<h4 class="attribute">Total</h4>
 					<img src="build/assets/img/npc_dota_hero_marci.png">
 					<span class="bottom-left outlined-text">Pick: - %</span>
 					<span class="bottom-right outlined-text">Win: - %</span>
 				</article>
 				<div>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<h4 class="attribute str"><abbr title="strength">str</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_axe.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<h4 class="attribute agi"><abbr title="agility">agi</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_mirana.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<h4 class="attribute int"><abbr title="intelligence">int</abbr></h4>
 						<img src="build/assets/img/npc_dota_hero_muerta.png">
 						<span class="bottom-left outlined-text">- %</span>
 						<span class="bottom-right outlined-text">- %</span>
 					</article>
-					<article class="hero-stat-frame debug">
+					<article class="hero-stat-frame">
 						<!-- the .all class represents the universal attribute.
 						The naming is given from the original dataset (the game files),
 						and is used programmatically in script -->
