@@ -3,7 +3,8 @@ import { sampleMatches } from './sample-data.js';
 // Top level
 const IMG_PATH = './build/assets/img/';
 const heroData = await fetch('./build/assets/json/heroes.json').then(r => r.json());
-const matches = sampleMatches;
+// We load sample data if local storage is not set.
+const matches = (r => r ? JSON.parse(r) : sampleMatches)(localStorage.getItem('matches'));
 const mostPickedSection = {
     node: tryGetElement('#most-picked-heroes'),
     name: 'mostPickedSection'
@@ -40,6 +41,7 @@ const matchList = {
 };
 // Dashboard
 let matchData;
+let sortCriteria = 'hero';
 updateAnalysis();
 // Form
 setHeroSelectOptions(addMatchForm.heroSelect, heroData);
@@ -86,6 +88,7 @@ function updateAnalysis() {
     populateTextStats(matchData);
     populateMostWinsFrames(Object.values(matchData.hero_stats), matchData.match_count.radiant + matchData.match_count.dire);
     redrawMatchList();
+    localStorage.setItem('matches', JSON.stringify(matches));
 }
 function analyzeMatches(matches) {
     const matchData = {
@@ -327,7 +330,42 @@ function secondsFromTimerString(duration) {
 }
 function redrawMatchList() {
     matchList.node.replaceChildren();
-    matches.forEach((match, id) => {
+    const sortDiv = document.createElement('div');
+    sortDiv.classList.add('flex', 'horizontal');
+    const sortText = document.createElement('span');
+    sortText.textContent = 'Sort by:';
+    const byHeroBtn = document.createElement('button');
+    byHeroBtn.textContent = 'hero';
+    byHeroBtn.classList.add('sort-btn');
+    // We reverse sort order if the sort criteria is already the clicked value.
+    byHeroBtn.addEventListener('click', () => {
+        sortCriteria = sortCriteria === 'hero' ? 'hero-reverse' : 'hero';
+        redrawMatchList();
+    });
+    const byLengthBtn = document.createElement('button');
+    byLengthBtn.textContent = 'length';
+    byLengthBtn.classList.add('sort-btn');
+    byLengthBtn.addEventListener('click', () => {
+        sortCriteria = sortCriteria === 'length' ? 'length-reverse' : 'length';
+        redrawMatchList();
+    });
+    sortDiv.append(sortText, byHeroBtn, byLengthBtn);
+    const heading = document.createElement('h3');
+    heading.textContent = 'Matches';
+    matchList.node.append(heading, sortDiv);
+    let sortedMatches = matches.map((v, i) => { return { match: v, id: i }; });
+    if (sortCriteria === 'hero-reverse') {
+        // We assert that the array index exist as logically it has to.
+        sortedMatches.sort((a, b) => b.id - a.id);
+    }
+    else if (sortCriteria === 'length') {
+        sortedMatches.sort((a, b) => a.match.seconds - b.match.seconds);
+    }
+    else if (sortCriteria === 'length-reverse') {
+        sortedMatches.sort((a, b) => b.match.seconds - a.match.seconds);
+    }
+    sortedMatches.forEach((sortedMatch) => {
+        const { match, id } = sortedMatch;
         const hero = assert(heroData.find(h => h.id === match.hero_id), `heroData with id ${match.hero_id}`, 'Could not get hero when creating match entry');
         const entry = document.createElement('article');
         entry.dataset['match'] = id.toString();
@@ -382,9 +420,6 @@ function redrawMatchList() {
 }
 function makeEditable(matchId) {
     const { hero_id, seconds, side, result } = assert(matches[matchId], `matches[${matchId}]`, 'Could not make match editable.');
-    const { name, attributes } = assert(heroData.find(h => h.id === hero_id), 'hero with match.hero_id', `Could not get hero from match id: ${matchId}`);
-    console.log(name);
-    console.log(attributes);
     const matchItem = tryGetElement(`article[data-match="${matchId}"]`, matchList);
     const [durationEl, sideEl, resultEl] = tryGetElements('span', { node: matchItem, name: 'matchItem' });
     const [editBtn, removeBtn] = tryGetElements('button', { node: matchItem, name: 'matchItem' });
@@ -439,14 +474,13 @@ function makeEditable(matchId) {
     saveBtn.classList.add('btn-commit');
     saveBtn.style.minWidth = '10ch';
     saveBtn.addEventListener('click', () => {
-        // change match og redraw
         matches[matchId] = {
             hero_id: hero_id,
             seconds: secondsFromTimerString(durationInput.value),
             side: radiantRadio.checked ? 'radiant' : 'dire',
             result: winRadio.checked ? 'win' : 'loss',
         };
-        redrawMatchList();
+        updateAnalysis();
     });
     editBtn.replaceWith(saveBtn);
     const cancelBtn = document.createElement('button');
@@ -455,12 +489,6 @@ function makeEditable(matchId) {
     cancelBtn.style.minWidth = '10ch';
     cancelBtn.addEventListener('click', () => redrawMatchList());
     removeBtn.replaceWith(cancelBtn);
-}
-function assert(object, objectName, partialErrorMsg) {
-    if (!object) {
-        throw new Error(`${partialErrorMsg}: ${objectName} is nullish!`);
-    }
-    return object;
 }
 function setHeroSelectOptions(select, heroes) {
     const options = [];
@@ -471,5 +499,11 @@ function setHeroSelectOptions(select, heroes) {
         options.push(option);
     });
     select.append(...options);
+}
+function assert(object, objectName, partialErrorMsg) {
+    if (!object) {
+        throw new Error(`${partialErrorMsg}: ${objectName} is nullish!`);
+    }
+    return object;
 }
 //# sourceMappingURL=main.js.map
