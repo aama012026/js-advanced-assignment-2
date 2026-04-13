@@ -34,33 +34,16 @@ const addMatchForm = {
     resetBtn: tryGetElement('button[type="reset"]', addMatchSection),
     submitBtn: tryGetElement('button[type="submit"]', addMatchSection)
 };
-const matchList = tryGetElement('#match-list');
+const matchList = {
+    node: tryGetElement('#match-list'),
+    name: 'matchList'
+};
 // Dashboard
 let matchData;
 updateAnalysis();
 // Form
 setHeroSelectOptions(addMatchForm.heroSelect, heroData);
-addMatchForm.gameLengthInput.addEventListener('input', () => {
-    const input = addMatchForm.gameLengthInput;
-    // Replace non-digits
-    let value = input.value.replace(/\D/g, '');
-    console.log(value);
-    // Limit total length to 6 digits (HHMMSS)
-    if (value.length > 6) {
-        value = value.slice(0, 6);
-    }
-    const length = value.length;
-    // Format to HH:MM:SS.
-    let formattedString = '';
-    for (let i = 0; i < length; i++) {
-        formattedString += value.charAt(i);
-        if (i === length - 3 || i === length - 5) {
-            formattedString += ':';
-        }
-    }
-    console.log(formattedString);
-    input.value = formattedString;
-});
+addMatchForm.gameLengthInput.addEventListener('input', (e) => formatTimeInput(e));
 addMatchForm.form.addEventListener('submit', (e) => {
     e.preventDefault();
     matches.push({
@@ -292,6 +275,27 @@ function setHeroFrame(frame, heroStats, totalGames) {
     pickRate.textContent = `${Math.round(picks / totalGames * 100)}%`;
     winRate.textContent = `${Math.round(wins / picks * 100)}%`;
 }
+function formatTimeInput(event) {
+    const input = event.target;
+    // Replace non-digits
+    let value = input.value.replace(/\D/g, '');
+    console.log(value);
+    // Limit total length to 6 digits (HHMMSS)
+    if (value.length > 6) {
+        value = value.slice(0, 6);
+    }
+    const length = value.length;
+    // Format to HH:MM:SS.
+    let formattedString = '';
+    for (let i = 0; i < length; i++) {
+        formattedString += value.charAt(i);
+        if (i === length - 3 || i === length - 5) {
+            formattedString += ':';
+        }
+    }
+    console.log(formattedString);
+    input.value = formattedString;
+}
 function timerStringFromSeconds(duration) {
     const wholeSeconds = Math.round(duration);
     const seconds = wholeSeconds % 60;
@@ -322,7 +326,7 @@ function secondsFromTimerString(duration) {
     return seconds;
 }
 function redrawMatchList() {
-    matchList.replaceChildren();
+    matchList.node.replaceChildren();
     matches.forEach((match, id) => {
         const hero = assert(heroData.find(h => h.id === match.hero_id), `heroData with id ${match.hero_id}`, 'Could not get hero when creating match entry');
         const entry = document.createElement('article');
@@ -348,6 +352,9 @@ function redrawMatchList() {
         editBtn.classList.add('btn-change');
         editBtn.textContent = 'edit';
         editBtn.style.minWidth = '10ch';
+        editBtn.addEventListener('click', () => {
+            makeEditable(id);
+        });
         const removeBtn = document.createElement('button');
         removeBtn.classList.add('btn-destructive');
         removeBtn.textContent = 'remove';
@@ -370,8 +377,84 @@ function redrawMatchList() {
         verticalDiv.style.width = '100%';
         verticalDiv.append(heroName, matchDetails);
         entry.append(heroImg, verticalDiv);
-        matchList.append(entry);
+        matchList.node.append(entry);
     });
+}
+function makeEditable(matchId) {
+    const { hero_id, seconds, side, result } = assert(matches[matchId], `matches[${matchId}]`, 'Could not make match editable.');
+    const { name, attributes } = assert(heroData.find(h => h.id === hero_id), 'hero with match.hero_id', `Could not get hero from match id: ${matchId}`);
+    console.log(name);
+    console.log(attributes);
+    const matchItem = tryGetElement(`article[data-match="${matchId}"]`, matchList);
+    const [durationEl, sideEl, resultEl] = tryGetElements('span', { node: matchItem, name: 'matchItem' });
+    const [editBtn, removeBtn] = tryGetElements('button', { node: matchItem, name: 'matchItem' });
+    if (!(durationEl && sideEl && resultEl && editBtn && removeBtn)) {
+        throw new Error('Failed to get all elements from matchItem');
+    }
+    const durationLabel = document.createElement('label');
+    durationLabel.textContent = 'Game length:';
+    const durationInput = document.createElement('input');
+    durationInput.type = 'text';
+    durationInput.value = timerStringFromSeconds(seconds);
+    durationInput.addEventListener('input', e => formatTimeInput(e));
+    const durationSpan = document.createElement('span');
+    durationSpan.classList.add('flex', 'horizontal');
+    durationSpan.style.gap = '0.5ch';
+    const sideSpan = durationSpan.cloneNode();
+    const resultSpan = durationSpan.cloneNode();
+    durationSpan.append(durationLabel, durationInput);
+    durationEl.replaceWith(durationSpan);
+    const sideText = document.createElement('text');
+    sideText.textContent = 'Side:';
+    const radiantRadio = document.createElement('input');
+    radiantRadio.type = 'radio';
+    radiantRadio.name = 'side';
+    radiantRadio.value = 'radiant';
+    const radiantLabel = document.createElement('label');
+    radiantLabel.textContent = 'radiant';
+    const direRadio = radiantRadio.cloneNode();
+    direRadio.value = 'dire';
+    const direLabel = document.createElement('label');
+    direLabel.textContent = 'dire';
+    side === 'radiant' ? radiantRadio.checked = true : direRadio.checked = true;
+    sideSpan.append(sideText, radiantRadio, radiantLabel, direRadio, direLabel);
+    sideEl.replaceWith(sideSpan);
+    const resultText = document.createElement('span');
+    resultText.textContent = 'Result:';
+    const winRadio = document.createElement('input');
+    winRadio.type = 'radio';
+    winRadio.name = 'result';
+    winRadio.value = 'win';
+    const winLabel = document.createElement('label');
+    winLabel.textContent = 'win';
+    const lossRadio = winRadio.cloneNode();
+    lossRadio.value = 'loss';
+    const lossLabel = document.createElement('label');
+    lossLabel.textContent = 'loss';
+    result === 'win' ? winRadio.checked = true : lossRadio.checked = true;
+    resultSpan.append(resultText, winRadio, winLabel, lossRadio, lossLabel);
+    resultEl.replaceWith(resultSpan);
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'save';
+    saveBtn.classList.add('btn-commit');
+    saveBtn.style.minWidth = '10ch';
+    saveBtn.addEventListener('click', () => {
+        // change match og redraw
+        matches[matchId] = {
+            hero_id: hero_id,
+            seconds: secondsFromTimerString(durationInput.value),
+            side: radiantRadio.checked ? 'radiant' : 'dire',
+            result: winRadio.checked ? 'win' : 'loss',
+        };
+        redrawMatchList();
+    });
+    editBtn.replaceWith(saveBtn);
+    const cancelBtn = document.createElement('button');
+    cancelBtn.textContent = 'cancel';
+    cancelBtn.classList.add('btn-destructive');
+    cancelBtn.style.minWidth = '10ch';
+    cancelBtn.addEventListener('click', () => redrawMatchList());
+    removeBtn.replaceWith(cancelBtn);
 }
 function assert(object, objectName, partialErrorMsg) {
     if (!object) {
